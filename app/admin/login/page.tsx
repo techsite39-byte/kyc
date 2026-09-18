@@ -1,0 +1,4 @@
+"use client";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui";
+export default function AdminLogin() { const router = useRouter(); return <main className="grid min-h-screen place-items-center bg-slate-50 px-5"><div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-soft"><p className="text-sm font-bold uppercase tracking-widest text-brand-600">KeystoneID operations</p><h1 className="mt-3 text-3xl font-bold">Admin sign in</h1><p className="mt-2 text-slate-500">Demo access — no credentials are required.</p><div className="mt-8 space-y-4"><input className="field" placeholder="Admin email" /><input className="field" placeholder="Password" type="password" /><Button className="w-full" onClick={() => router.push("/admin")}>Enter dashboard</Button></div></div></main> }

@@ -1,0 +1,3 @@
+import { AppShell } from "@/components/shell";
+import { Button } from "@/components/ui";
+export default function Profile() { return <AppShell><div className="mx-auto max-w-3xl px-5 py-8"><h1 className="text-3xl font-bold">Profile</h1><p className="mt-2 text-slate-500">Manage your demo account.</p><div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6"><div className="grid gap-5 sm:grid-cols-2"><label className="text-sm font-semibold">Full name<input className="field mt-2" value="Alex Morgan" readOnly /></label><label className="text-sm font-semibold">Email<input className="field mt-2" value="alex@example.com" readOnly /></label></div><Button className="mt-6">Save changes</Button></div></div></AppShell> }

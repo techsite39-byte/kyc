@@ -1,0 +1,3 @@
+import { AppShell } from "@/components/shell";
+import { Badge } from "@/components/ui";
+export default function History() { return <AppShell><div className="mx-auto max-w-6xl px-5 py-8"><h1 className="text-3xl font-bold">Verification history</h1><p className="mt-2 text-slate-500">Your recent demo verification attempts.</p><div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white"><div className="grid grid-cols-3 border-b p-4 text-xs font-bold uppercase tracking-wider text-slate-400"><span>Date</span><span>Document</span><span>Status</span></div><div className="grid grid-cols-3 items-center p-4 text-sm"><span>Sep 16, 2026</span><span>Passport · United States</span><Badge tone="green">Approved (demo)</Badge></div></div></div></AppShell> }
