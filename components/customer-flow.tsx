@@ -14,10 +14,40 @@ export function BasicInformation() {
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     writeCustomerFlow(flow);
+    window.location.href = "/upload-document";
+  }
+
+  return <main className="grid min-h-screen place-items-center p-5"><form onSubmit={submit} className="grid w-full max-w-sm gap-5 rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_16px_40px_rgba(15,35,65,.08)]"><label className="grid gap-2 text-sm font-semibold">Name<input className="field transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100" required value={flow.name} onChange={(event) => setFlow({ ...flow, name: event.target.value })} /></label><label className="grid gap-2 text-sm font-semibold">Year<input className="field transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100" required inputMode="numeric" value={flow.year} onChange={(event) => setFlow({ ...flow, year: event.target.value })} /></label><label className="grid gap-2 text-sm font-semibold">Password<div className="relative"><input className="field pr-11 transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100" required type={showPassword ? "text" : "password"} value={flow.password} onChange={(event) => setFlow({ ...flow, password: event.target.value })} /><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button></div></label><div className="flex items-center justify-between pt-2"><Link href="/upload-document" className="text-sm font-semibold text-brand-600">Skip</Link><Button type="submit">Next</Button></div></form></main>;
+}
+
+export function UploadDocument() {
+  const [flow, setFlow] = useState<CustomerFlowState>(emptyCustomerFlow);
+  const [documentPreview, setDocumentPreview] = useState<string>("");
+
+  useEffect(() => setFlow(readCustomerFlow()), []);
+
+  function updateDocument(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const value = String(reader.result || "");
+      setDocumentPreview(value);
+      const next = { ...flow, proofFront: value };
+      setFlow(next);
+      writeCustomerFlow(next);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    writeCustomerFlow(flow);
     window.location.href = "/upload-proof";
   }
 
-  return <main className="grid min-h-screen place-items-center p-5"><form onSubmit={submit} className="grid w-full max-w-sm gap-5 rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_16px_40px_rgba(15,35,65,.08)]"><label className="grid gap-2 text-sm font-semibold">Name<input className="field transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100" required value={flow.name} onChange={(event) => setFlow({ ...flow, name: event.target.value })} /></label><label className="grid gap-2 text-sm font-semibold">Year<input className="field transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100" required inputMode="numeric" value={flow.year} onChange={(event) => setFlow({ ...flow, year: event.target.value })} /></label><label className="grid gap-2 text-sm font-semibold">Password<div className="relative"><input className="field pr-11 transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100" required type={showPassword ? "text" : "password"} value={flow.password} onChange={(event) => setFlow({ ...flow, password: event.target.value })} /><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button></div></label><div className="flex items-center justify-between pt-2"><Link href="/upload-proof" className="text-sm font-semibold text-brand-600">Skip</Link><Button type="submit">Submit</Button></div></form></main>;
+  return <main className="grid min-h-screen place-items-center bg-slate-50 p-5"><form onSubmit={submit} className="grid w-full max-w-xl gap-6 rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_18px_50px_rgba(15,35,65,.08)]"><div className="space-y-2"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-600">KYC</p><h1 className="text-3xl font-bold tracking-tight text-ink">Upload document</h1></div><label className="grid gap-2 text-sm font-semibold text-slate-700">Name<input className="field transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100" required value={flow.name} onChange={(event) => setFlow({ ...flow, name: event.target.value })} /></label><label className="grid gap-2 text-sm font-semibold text-slate-700">Document file<input className="field cursor-pointer transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100" type="file" accept="image/*,.pdf" onChange={updateDocument} /></label>{documentPreview && <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3"><img src={documentPreview} alt="Document preview" className="max-h-72 w-full rounded-xl object-contain" /></div>}<div className="flex items-center justify-between pt-2"><Link href="/upload-proof" className="text-sm font-semibold text-brand-600">Skip</Link><Button type="submit">Generate</Button></div></form></main>;
 }
 
 function ImageInput({ capture, label, onChange }: { capture?: "environment" | "user"; label?: string; onChange: (event: ChangeEvent<HTMLInputElement>) => void }) {
