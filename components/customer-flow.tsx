@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui";
 import { emptyCustomerFlow, readCustomerFlow, writeCustomerFlow, type CustomerFlowState } from "@/lib/customer-flow";
@@ -79,5 +80,5 @@ export function Selfie() {
 }
 
 export function Result() {
-  return <main className="mx-auto flex min-h-screen max-w-5xl flex-col items-center p-5 sm:p-10"><section className="grid min-h-64 w-full max-w-xl flex-1 place-items-center rounded-2xl border border-slate-200 bg-white p-8 text-center"><div><div className="text-2xl font-semibold text-ink">All done</div><div className="mt-3 text-lg text-brand-600">Verification pending</div></div></section><div className="mt-8 flex w-full max-w-5xl justify-end"><Link href="/create-id"><Button>Next</Button></Link></div></main>;
+  return <main className="grid min-h-screen place-items-center bg-slate-50 p-5 sm:p-8"><section className="flex w-full max-w-md flex-col items-center rounded-3xl border border-slate-200 bg-white px-6 py-10 text-center shadow-[0_20px_55px_rgba(15,35,65,.08)] sm:px-10 sm:py-12"><div className="grid h-16 w-16 place-items-center rounded-full bg-brand-50 text-brand-600 ring-8 ring-brand-50/60"><Check className="h-8 w-8" strokeWidth={2.5} /></div><h1 className="mt-7 text-3xl font-bold tracking-tight text-ink">All done</h1><p className="mt-3 text-base font-medium text-slate-500">Verification pending</p><Link href="/create-id" className="mt-9"><Button className="min-w-32 rounded-xl px-7 py-3 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">Next</Button></Link></section></main>;
 }
