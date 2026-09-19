@@ -1,6 +1,6 @@
-export type CustomerFlowState = { name: string; password: string; aadhaarNumber: string; year: string; proofFront: string; proofBack: string; selfieImage: string };
+export type CustomerFlowState = { name: string; password: string; year: string; proofFront: string; proofBack: string; selfieImage: string };
 
-export const emptyCustomerFlow: CustomerFlowState = { name: "", password: "", aadhaarNumber: "", year: "", proofFront: "", proofBack: "", selfieImage: "" };
+export const emptyCustomerFlow: CustomerFlowState = { name: "", password: "", year: "", proofFront: "", proofBack: "", selfieImage: "" };
 const storageKey = "customer-verification-flow";
 
 export function readCustomerFlow(): CustomerFlowState {
